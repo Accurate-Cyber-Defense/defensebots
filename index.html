@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>ACCURATE CYBER DEFENSE BOTS</title>
+  <!-- Font Awesome 6 + Google Fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(circle at 10% 20%, #030614, #00020b);
+      color: #eef5ff;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    /* animated grid & glitch overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        repeating-linear-gradient(0deg, rgba(59,130,246,0.04) 0px, rgba(59,130,246,0.04) 1px, transparent 1px, transparent 6px),
+        repeating-linear-gradient(90deg, rgba(249,115,22,0.02) 0px, rgba(249,115,22,0.02) 1px, transparent 1px, transparent 8px);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    /* animated floating orbs: blue, orange, purple */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.35;
+      z-index: -1;
+      animation: floatOrb 20s infinite alternate ease-in-out;
+    }
+    .orb-1 { width: 55vw; height: 55vw; background: #3b82f6; top: -20vh; right: -20vw; animation-duration: 24s; }
+    .orb-2 { width: 50vw; height: 50vw; background: #f97316; bottom: -15vh; left: -15vw; animation-duration: 28s; animation-delay: -4s; }
+    .orb-3 { width: 45vw; height: 45vw; background: #a855f7; top: 45vh; right: 25%; animation-duration: 30s; opacity: 0.3; }
+
+    @keyframes floatOrb {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(6%, 10%) scale(1.15); }
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 28px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      padding: 28px 0 24px;
+      border-bottom: 1px solid rgba(59, 130, 246, 0.6);
+      backdrop-filter: blur(3px);
+      animation: slideDown 0.6s ease-out;
+    }
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .logo h1 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: 1.8rem;
+      background: linear-gradient(135deg, #ffffff, #3b82f6, #f97316, #c084fc);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: -0.5px;
+      animation: pulseGlow 3s infinite alternate;
+    }
+    @keyframes pulseGlow {
+      0% { filter: drop-shadow(0 0 2px #3b82f6); }
+      100% { filter: drop-shadow(0 0 8px #f97316); }
+    }
+    .logo span {
+      font-size: 0.75rem;
+      color: #facc15;
+      display: block;
+      letter-spacing: 1px;
+    }
+    .social-links {
+      display: flex;
+      gap: 28px;
+    }
+    .social-links a {
+      color: #cbd5ff;
+      font-size: 1.5rem;
+      transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+    .social-links a:hover { 
+      color: #f97316; 
+      transform: translateY(-5px) scale(1.1);
+      text-shadow: 0 0 6px #f97316;
+    }
+
+    /* HERO SECTION */
+    .hero {
+      text-align: center;
+      padding: 50px 0 40px;
+    }
+    .hero h2 {
+      font-size: 3.2rem;
+      font-weight: 800;
+      font-family: 'Poppins', sans-serif;
+      animation: fadeUp 0.8s;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(25px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    .hero .grad-text {
+      background: linear-gradient(135deg, #3b82f6, #f97316, #a855f7);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      background-size: 200% auto;
+      animation: shimmer 4s linear infinite;
+    }
+    @keyframes shimmer {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 200% 50%; }
+    }
+    .hero p {
+      max-width: 700px;
+      margin: 18px auto;
+      font-size: 1.2rem;
+      opacity: 0.92;
+    }
+    .badge-row {
+      margin-top: 24px;
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .badge-chip {
+      background: rgba(59, 130, 246, 0.15);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(249, 115, 22, 0.6);
+      border-radius: 60px;
+      padding: 8px 22px;
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+    .badge-chip i { margin-right: 8px; color: #f97316; }
+
+    /* BOTS SECTION - exactly 2 bots */
+    .bots-section {
+      margin: 30px 0 60px;
+    }
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 45px;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+    }
+    .section-title i {
+      background: linear-gradient(145deg, #1e2a4a, #0f172f);
+      padding: 12px;
+      border-radius: 50%;
+      color: #f97316;
+      box-shadow: 0 0 8px #a855f7;
+    }
+    .bots-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 48px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .bot-card {
+      background: rgba(8, 16, 32, 0.8);
+      backdrop-filter: blur(12px);
+      border-radius: 52px;
+      padding: 38px 28px;
+      border: 1px solid rgba(59, 130, 246, 0.5);
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.7);
+      position: relative;
+      overflow: hidden;
+    }
+    .bot-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 20%, rgba(59,130,246,0.12), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+    .bot-card:hover::before {
+      opacity: 1;
+    }
+    .bot-card:hover {
+      transform: translateY(-12px);
+      border-color: #f97316;
+      box-shadow: 0 30px 50px -12px rgba(249,115,22,0.35), 0 0 0 1px rgba(168,85,247,0.3);
+    }
+    .bot-icon {
+      font-size: 3.4rem;
+      background: linear-gradient(145deg, #102a4e, #04172e);
+      width: 95px;
+      height: 95px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 35px;
+      margin-bottom: 24px;
+      color: #facc15;
+      transition: 0.2s;
+    }
+    .bot-card:hover .bot-icon {
+      color: #f97316;
+      transform: scale(1.02);
+    }
+    .bot-badge {
+      display: inline-block;
+      background: linear-gradient(95deg, #ef444420, #a855f720);
+      border: 1px solid #f97316;
+      border-radius: 40px;
+      padding: 5px 18px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #ffbc7a;
+      margin-bottom: 16px;
+      letter-spacing: 0.5px;
+    }
+    .bot-card h3 {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+      letter-spacing: -0.3px;
+      background: linear-gradient(135deg, #fff, #c4e0ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .bot-desc {
+      font-size: 0.9rem;
+      opacity: 0.92;
+      margin: 16px 0;
+      min-height: 70px;
+      line-height: 1.5;
+    }
+    .features-list {
+      list-style: none;
+      margin: 15px 0 18px;
+      font-size: 0.8rem;
+    }
+    .features-list li {
+      margin: 8px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .features-list li i {
+      color: #facc15;
+      font-size: 0.8rem;
+      width: 20px;
+    }
+    .price {
+      font-size: 2.2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #facc15, #fb923c);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin: 20px 0 16px;
+    }
+    .price small {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #9aaeda;
+    }
+    .btn-purchase {
+      background: linear-gradient(95deg, #0a5fdf, #6d28d9);
+      border: none;
+      width: 100%;
+      padding: 16px 0;
+      border-radius: 60px;
+      font-weight: 700;
+      font-size: 1rem;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: 0.25s;
+      margin-top: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-purchase::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+    .btn-purchase:hover::after {
+      left: 100%;
+    }
+    .btn-purchase:hover {
+      background: linear-gradient(95deg, #2a7eff, #a855f7);
+      transform: scale(1.02);
+      box-shadow: 0 6px 20px #a855f7;
+    }
+
+    /* Modal Premium */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.94);
+      backdrop-filter: blur(16px);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background: #0a0f23;
+      max-width: 520px;
+      width: 90%;
+      border-radius: 56px;
+      padding: 36px;
+      border: 1px solid #f97316;
+      box-shadow: 0 0 30px rgba(168,85,247,0.5);
+      animation: fadeSlide 0.3s ease-out;
+    }
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: scale(0.96) translateY(15px);}
+      to { opacity: 1; transform: scale(1) translateY(0);}
+    }
+    .modal-content h3 {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 18px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      color: #facc15;
+    }
+    .payment-methods {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin: 24px 0;
+    }
+    .pay-method {
+      background: #11192e;
+      padding: 10px 20px;
+      border-radius: 60px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: 0.2s;
+      border: 1px solid #3b82f6;
+      color: #eef;
+    }
+    .pay-method i { font-size: 1.2rem; }
+    .pay-method:hover { background: #1f2b48; border-color: #f97316; transform: translateY(-2px);}
+    .selected-payment {
+      background: #f97316;
+      border-color: white;
+      box-shadow: 0 0 12px #f97316;
+      color: #000;
+    }
+    .modal-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 28px;
+      gap: 14px;
+    }
+    .confirm-pay {
+      background: linear-gradient(95deg, #10b981, #059669);
+      padding: 12px 28px;
+      border-radius: 60px;
+      font-weight: bold;
+      border: none;
+      color: white;
+      cursor: pointer;
+      font-size: 1rem;
+      flex:1;
+    }
+    .close-modal {
+      background: #334155;
+      border: none;
+      border-radius: 60px;
+      padding: 12px 28px;
+      cursor: pointer;
+      color: white;
+      font-weight: 500;
+      flex:1;
+    }
+    .install-discord-link {
+      display: inline-block;
+      background: linear-gradient(95deg, #5865F2, #3b47b3);
+      border-radius: 60px;
+      padding: 12px 26px;
+      margin: 14px 0 6px;
+      font-weight: bold;
+      text-decoration: none;
+      color: white;
+      transition: 0.2s;
+      width: 100%;
+      text-align: center;
+    }
+    .install-discord-link:hover {
+      background: #4752c4;
+      transform: scale(1.02);
+      box-shadow: 0 0 12px #5865F2;
+    }
+    footer {
+      text-align: center;
+      padding: 35px 0 30px;
+      border-top: 1px solid #f9731633;
+      margin-top: 20px;
+      font-size: 0.8rem;
+      color: #9bb2e0;
+    }
+    @media (max-width: 750px) {
+      .navbar { flex-direction: column; gap: 20px;}
+      .hero h2 { font-size: 2.2rem; }
+      .bots-grid { gap: 30px; }
+      .bot-card { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<div class="container">
+  <nav class="navbar">
+    <div class="logo">
+      <h1>⚡ ACCURATE CYBER DEFENSE</h1>
+      <span>🕷️ SPIDER BOT · WAR PHISH · Dual Arsenal 🎣</span>
+    </div>
+    <div class="social-links">
+      <a href="#" target="_blank"><i class="fab fa-discord"></i></a>
+      <a href="#" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="#" target="_blank"><i class="fab fa-telegram"></i></a>
+      <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <h2>🕸️ <span class="grad-text">SPIDER BOT + WAR PHISH</span> 🎣</h2>
+    <p>Elite OSINT & offensive phishing framework — Red Team synergy. Purchase your bot, pay securely, and deploy instantly on Discord.</p>
+    <div class="badge-row">
+      <span class="badge-chip"><i class="fas fa-spider"></i> Web Crawler OSINT</span>
+      <span class="badge-chip"><i class="fas fa-fish"></i> Phishing AI</span>
+      <span class="badge-chip"><i class="fab fa-bitcoin"></i> Crypto / Card Ready</span>
+    </div>
+  </div>
+
+  <div class="bots-section">
+    <div class="section-title">
+      <i class="fas fa-dice-d6"></i> 
+      <span>🔪 SELECT YOUR WEAPON 🔪</span>
+      <i class="fas fa-bolt"></i>
+    </div>
+    <div class="bots-grid" id="botsGrid"></div>
+  </div>
+
+  <footer>
+    <p>© 2063 Accurate Cyber Defense — Authorized offensive simulation tools. After purchase you get Discord invite & lifetime license.</p>
+    <p style="margin-top: 12px;"><i class="fab fa-discord"></i> <i class="fab fa-github"></i> <i class="fab fa-telegram"></i> <i class="fab fa-twitter"></i> | #SpiderPhish</p>
+  </footer>
+</div>
+
+<!-- Payment Modal -->
+<div id="paymentModal" class="modal">
+  <div class="modal-content">
+    <h3><i class="fas fa-skull" style="color:#f97316;"></i> DEPLOY BOT</h3>
+    <p id="modalBotName" style="background: #111a30; padding: 12px; border-radius: 40px; font-weight:700; border-left: 4px solid #f97316;">Bot: --</p>
+    <p id="modalPrice" style="font-size: 1.9rem; font-weight: 800; margin: 14px 0; background: linear-gradient(135deg, #facc15, #f97316); -webkit-background-clip: text; background-clip: text; color: transparent;">$--</p>
+    <label style="font-weight: 600;">Secure payment gateway <i class="fas fa-lock"></i></label>
+    <div class="payment-methods" id="paymentMethodsList"></div>
+    <div class="modal-actions">
+      <button class="close-modal" id="closeModalBtn"><i class="fas fa-times"></i> Cancel</button>
+      <button class="confirm-pay" id="confirmPaymentBtn"><i class="fas fa-check-circle"></i> Pay & Get Bot</button>
+    </div>
+    <div id="paymentStatus" class="status-area" style="margin-top: 18px; font-size: 0.85rem;"></div>
+  </div>
+</div>
+
+<script>
+  // ========== ONLY TWO BOTS: SPIDER BOT + WAR PHISH ==========
+  const twoBots = [
+    { 
+      id: 1, 
+      name: "Spider Bot", 
+      desc: "Advanced web crawling OSINT engine, Discord scraping, metadata extraction and social engineering toolkit.",
+      price: 44.99, 
+      icon: "fa-spider",
+      badge: "🕸️ OSINT MASTER",
+      colorAccent: "#3b82f6",
+      features: ["🌐 Deep web crawler", "🔍 Metadata & IP harvesting", "📡 Discord server OSINT", "🕵️ Social graph mapping"]
+    },
+    { 
+      id: 2, 
+      name: "War Phish", 
+      desc: "Red team phishing framework with AI link cloaking, dynamic landing pages, credential capture and real-time analytics.",
+      price: 39.99, 
+      icon: "fa-fish",
+      badge: "🎣 PHISHING CORE",
+      colorAccent: "#f97316",
+      features: ["🤖 AI link obfuscation", "📧 Phishing campaign manager", "📊 Live credential dashboard", "⚡ Anti-detection bypass"]
+    }
+  ];
+
+  // Payment methods with modern look
+  const paymentOptions = [
+    { name: "PayPal", value: "paypal", icon: "fab fa-paypal", simulateUrl: "https://www.paypal.com/paypalme/AccurateCyber" },
+    { name: "Visa/Mastercard", value: "visa", icon: "fab fa-cc-visa", simulateUrl: "card" },
+    { name: "Bitcoin", value: "bitcoin", icon: "fab fa-bitcoin", simulateUrl: "btc:bc1cyber" },
+    { name: "Ethereum", value: "ethereum", icon: "fab fa-ethereum", simulateUrl: "eth:0xDefense" },
+    { name: "Google Pay", value: "googlepay", icon: "fab fa-google-pay", simulateUrl: "https://pay.google.com" }
+  ];
+
+  let selectedBot = null;
+  let selectedPaymentMethod = null;
+
+  // Realistic Discord invite generator (functional demo)
+  function generateInviteLink(botName) {
+    const botIdMap = {
+      "Spider Bot": "1369525892396093488",
+      "War Phish": "1504710648196497588"
+    };
+    const clientId = botIdMap[botName] || "1098765432109876543";
+    const permissions = 8;
+    const scopes = "bot%20applications.commands";
+    return `https://discord.com/oauth2/authorize?client_id=${clientId}&permissions=${permissions}&scope=${scopes}&state=${botName.replace(/\s/g,'')}`;
+  }
+
+  // Render exactly 2 cards with features
+  function renderTwoBots() {
+    const grid = document.getElementById('botsGrid');
+    if (!grid) return;
+    grid.innerHTML = '';
+    twoBots.forEach(bot => {
+      const card = document.createElement('div');
+      card.className = 'bot-card';
+      card.style.borderTop = `2px solid ${bot.colorAccent}`;
+      // Generate feature list HTML
+      const featuresHtml = bot.features.map(f => `<li><i class="fas fa-caret-right"></i> ${f}</li>`).join('');
+      card.innerHTML = `
+        <div class="bot-icon"><i class="fas ${bot.icon}"></i></div>
+        <div class="bot-badge" style="border-color: ${bot.colorAccent}; color: ${bot.colorAccent};">${bot.badge}</div>
+        <h3>${bot.name}</h3>
+        <div class="bot-desc">${bot.desc}</div>
+        <ul class="features-list">${featuresHtml}</ul>
+        <div class="price">$${bot.price.toFixed(2)} <small>/ lifetime license</small></div>
+        <button class="btn-purchase" data-id="${bot.id}"><i class="fab fa-discord"></i> PURCHASE & INSTALL</button>
+      `;
+      grid.appendChild(card);
+    });
+    // attach listeners
+    document.querySelectorAll('.btn-purchase').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const id = parseInt(btn.getAttribute('data-id'));
+        const bot = twoBots.find(b => b.id === id);
+        if (bot) openPaymentModal(bot);
+      });
+    });
+  }
+
+  function openPaymentModal(bot) {
+    selectedBot = bot;
+    selectedPaymentMethod = null;
+    const modal = document.getElementById('paymentModal');
+    const modalBotName = document.getElementById('modalBotName');
+    const modalPrice = document.getElementById('modalPrice');
+    modalBotName.innerHTML = `<i class="fas fa-shield-alt" style="color:#f97316;"></i> ${bot.name} — Red Team Unit`;
+    modalPrice.innerText = `$${bot.price.toFixed(2)} USD`;
+    
+    const methodsContainer = document.getElementById('paymentMethodsList');
+    methodsContainer.innerHTML = '';
+    paymentOptions.forEach(pm => {
+      const methodDiv = document.createElement('div');
+      methodDiv.className = 'pay-method';
+      methodDiv.setAttribute('data-method', pm.value);
+      methodDiv.innerHTML = `<i class="${pm.icon}"></i> ${pm.name}`;
+      methodDiv.addEventListener('click', () => {
+        document.querySelectorAll('.pay-method').forEach(el => el.classList.remove('selected-payment'));
+        methodDiv.classList.add('selected-payment');
+        selectedPaymentMethod = pm;
+        document.getElementById('paymentStatus').innerHTML = '';
+      });
+      methodsContainer.appendChild(methodDiv);
+    });
+    document.getElementById('paymentStatus').innerHTML = '';
+    modal.style.display = 'flex';
+  }
+
+  function completePaymentAndShowInstall(bot, method) {
+    const statusDiv = document.getElementById('paymentStatus');
+    const inviteLink = generateInviteLink(bot.name);
+    let methodMessage = '';
+    switch (method.value) {
+      case 'paypal': methodMessage = 'PayPal payment approved. License bound.'; break;
+      case 'visa': methodMessage = 'VISA/Mastercard transaction successful.'; break;
+      case 'bitcoin': methodMessage = 'Bitcoin payment confirmed on blockchain.'; break;
+      case 'ethereum': methodMessage = 'Ethereum transaction verified.'; break;
+      default: methodMessage = 'Google Pay processed instantly.';
+    }
+    statusDiv.innerHTML = `
+      <div style="background: #0c1f2a; border-radius: 32px; padding: 18px; margin-top: 8px; border:1px solid #f97316;">
+        <i class="fas fa-check-double" style="color: #2ecc71; font-size: 1.8rem;"></i>
+        <p style="font-weight: bold; margin: 12px 0 6px;">✅ ${methodMessage}</p>
+        <p>License for <strong style="color:#facc15;">${bot.name}</strong> activated.</p>
+        <div style="margin: 18px 0;">
+          <a href="${inviteLink}" target="_blank" class="install-discord-link">
+            <i class="fab fa-discord"></i> ➕ ADD ${bot.name} TO SERVER
+          </a>
+          <p style="font-size: 0.7rem; margin-top: 12px;">Click → authorize → elite bot deployed with full permissions.</p>
+        </div>
+        <small><i class="fas fa-fingerprint"></i> Lifetime license + future updates included.</small>
+      </div>
+    `;
+    const confirmBtn = document.getElementById('confirmPaymentBtn');
+    confirmBtn.disabled = true;
+    confirmBtn.style.opacity = '0.6';
+    confirmBtn.innerHTML = '<i class="fas fa-check"></i> LICENSE ACTIVATED';
+  }
+
+  function processPayment(bot, method) {
+    if (!method) {
+      document.getElementById('paymentStatus').innerHTML = '<span style="color:#ffb347;"><i class="fas fa-exclamation-triangle"></i> Select a payment method: PayPal, Card, Crypto or Google Pay.</span>';
+      return false;
+    }
+    // Simulate gateway popups and messages
+    if (method.value === 'paypal') {
+      window.open(`https://www.paypal.com/paypalme/IanKulani/${bot.price.toFixed(2)}?demo=secure`, '_blank');
+      alert(`💸 PayPal demo: $${bot.price.toFixed(2)} processed. License will be activated.`);
+    } else if (method.value === 'visa') {
+      alert("💳 VISA/Mastercard sandbox: Payment authorized successfully.");
+    } else if (method.value === 'bitcoin') {
+      alert(`₿ Bitcoin request: send $${bot.price.toFixed(2)} equivalent to bc1qspiderphish. Demo confirmed.`);
+    } else if (method.value === 'ethereum') {
+      alert(`Ξ Ethereum gateway: 0xPurpleSpider. Transaction accepted.`);
+    } else if (method.value === 'googlepay') {
+      alert("📱 Google Pay instant success. Bot deployment ready.");
+    }
+    completePaymentAndShowInstall(bot, method);
+    return true;
+  }
+
+  function initModalEvents() {
+    const modal = document.getElementById('paymentModal');
+    const closeBtn = document.getElementById('closeModalBtn');
+    const confirmBtn = document.getElementById('confirmPaymentBtn');
+    closeBtn.addEventListener('click', () => {
+      modal.style.display = 'none';
+      resetModal();
+    });
+    confirmBtn.addEventListener('click', () => {
+      if (!selectedBot) {
+        document.getElementById('paymentStatus').innerHTML = '<span style="color:red;">Error: no bot selected</span>';
+        return;
+      }
+      if (!selectedPaymentMethod) {
+        document.getElementById('paymentStatus').innerHTML = '<span style="color:#ffb347;">❗ Please select a payment method first.</span>';
+        return;
+      }
+      processPayment(selectedBot, selectedPaymentMethod);
+    });
+    window.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+        resetModal();
+      }
+    });
+  }
+  
+  function resetModal() {
+    const confirmBtn = document.getElementById('confirmPaymentBtn');
+    confirmBtn.disabled = false;
+    confirmBtn.style.opacity = '1';
+    confirmBtn.innerHTML = '<i class="fas fa-check-circle"></i> Pay & Get Bot';
+    document.getElementById('paymentStatus').innerHTML = '';
+    selectedPaymentMethod = null;
+    selectedBot = null;
+    document.querySelectorAll('.pay-method').forEach(el => el.classList.remove('selected-payment'));
+  }
+
+  function setupSocialLinks() {
+    const socialMap = {
+      'discord': 'https://discord.gg/2GeqJQMVVQ',
+      'github': 'https://github.com/Accurate-Cyber-Defense',
+      'telegram': 'https://t.me/AccurateCyberBot',
+      'twitter': 'https://x.com/accurate_mw'
+    };
+    document.querySelectorAll('.social-links a').forEach(link => {
+      const iconElem = link.querySelector('i');
+      if (iconElem) {
+        for (const [key, url] of Object.entries(socialMap)) {
+          if (iconElem.classList.contains(`fa-${key}`)) {
+            link.href = url;
+            break;
+          }
+        }
+      }
+      if (!link.href || link.href === '#') link.href = 'https://discord.gg/2GeqJQMVVQ';
+      link.target = '_blank';
+    });
+  }
+
+  renderTwoBots();
+  initModalEvents();
+  setupSocialLinks();
+  console.log("✅ ACCURATE CYBER DEFENSE");
+</script>
+</body>
+</html>
